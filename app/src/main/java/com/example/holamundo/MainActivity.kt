@@ -14,7 +14,7 @@ class MainActivity : AppCompatActivity() {
     val mapache = Animales("Mapache","https://www.infobae.com/new-resizer/vHYeGyvRCSOx2MGr5azSQz_yql0=/1200x900/filters:format(jpg):quality(85)//s3.amazonaws.com/arc-wordpress-client-uploads/infobae-wp/wp-content/uploads/2018/01/04120809/mapache-inteligencia-pixabay-01.jpg")
     val tortuga = Animales("Tortuga", "https://hablemosdepeces.com/wp-content/uploads/2017/05/tortuga-carey-1.jpg")
     val gecko = Animales("Gecko", "https://static.wikia.nocookie.net/reinoanimalia/images/a/ad/Gecko_leopardo_wiki.png/revision/latest?cb=20130319020757&path-prefix=es")
-    val animalActual = mapache.copy()
+    var animalActual = mapache.copy()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,9 +30,21 @@ class MainActivity : AppCompatActivity() {
         //verEnPantalla("Animal: ${animalActual.nombre}, ${animalActual.url}")
         val boton = findViewById(R.id.botoncito) as Button
         boton.setOnClickListener{
-            view -> verEnPantalla("o.o me diste click")
+            view -> switchAnimal(animalActual)
         }
     }
+    fun switchAnimal(animal:Animales)
+    {
+        var animalActual = animal.copy()
+        when(animal.url)
+        {
+            "https://www.infobae.com/new-resizer/vHYeGyvRCSOx2MGr5azSQz_yql0=/1200x900/filters:format(jpg):quality(85)//s3.amazonaws.com/arc-wordpress-client-uploads/infobae-wp/wp-content/uploads/2018/01/04120809/mapache-inteligencia-pixabay-01.jpg" -> animalActual = mapache.copy()
+            "https://hablemosdepeces.com/wp-content/uploads/2017/05/tortuga-carey-1.jpg" -> animalActual = tortuga.copy()
+            "https://static.wikia.nocookie.net/reinoanimalia/images/a/ad/Gecko_leopardo_wiki.png/revision/latest?cb=20130319020757&path-prefix=es" -> animalActual = gecko.copy()
+        }
+        verEnPantalla("Animal: ${animalActual.nombre}, ${animalActual.url}")
+    }
+
     fun verEnPantalla(s : String)
     {
         val txt = findViewById<TextView>(R.id.HolaMundo) as TextView
